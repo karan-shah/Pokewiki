@@ -40,7 +40,7 @@ const PokemonList = (props) => {
               const { url } = pokemon.pokemon;
               const id = url.split("/")[url.split("/").length - 2]
               const name = pokemon.pokemon.name
-              return <Col md={3} sm={12} key={index} className='mb-3'>
+              return <Col md={3} sm={12} key={index} className='mb-3 pl-0 pr-3'>
                 <Card className="box shadow text-center">
                   <Link to={`/pokewiki/${name}`} className='custom-link'>
                     <div>
