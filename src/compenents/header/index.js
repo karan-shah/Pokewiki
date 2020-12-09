@@ -36,11 +36,15 @@ const Header = (props) => {
   return (
     <Navbar color="light" light expand="md">
       <NavbarBrand>
-        <img
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/underground/iron-ball.png"
-          alt="..."
-          className="rounded-circle"
-        />
+        <Link to='/'>
+          <div>
+            <img
+              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/underground/iron-ball.png"
+              alt="..."
+              className="rounded-circle"
+            />
+          </div>
+        </Link>
       </NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
@@ -48,7 +52,7 @@ const Header = (props) => {
           <div>
             <Nav navbar>
               <NavItem>
-                <NavLink href="/">PokeWiki</NavLink>
+                <NavLink tag={Link} to="/">PokeWiki</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>

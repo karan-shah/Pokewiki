@@ -34,7 +34,7 @@ const PokemonList = (props) => {
         <div className='text-center py-3'>
           <h2 className='text-capitalize'>{pokemonsType} Pokemons</h2>
         </div>
-        <Row className='px-3'>
+        <Row className='pl-3 ml-0 mr-0'>
           {
             pokemonsData.map((pokemon, index) => {
               const { url } = pokemon.pokemon;
