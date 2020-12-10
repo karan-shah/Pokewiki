@@ -28,7 +28,7 @@ const PokemonList = (props) => {
   const LoaderComponent = () => <div><Loader /></div>
 
   const IMAGE_URL = process.env.REACT_APP_IMAGE_URL
-  return <div>
+  return <div className='container-md'>
     {
       pokemonsDataLoading ? <LoaderComponent /> : pokemonsData.length ? <div>
         <div className='text-center py-3'>
