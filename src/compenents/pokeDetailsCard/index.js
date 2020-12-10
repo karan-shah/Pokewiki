@@ -7,15 +7,29 @@ const PokeDetailsCard = (props) => {
 
   const IMAGE_URL = process.env.REACT_APP_IMAGE_URL
   const colorBasedOnType = { water: 'info', fire: 'warning', bug: 'success', flying: 'dark', poison: 'primary', normal: 'secondary' }
-  return <Row>
-    <Col md={{ size: 4, offset: 1 }} sm={12} className='text-center'>
+  const getFlavorText = () => {
+    if (pokemonSpeciesData.flavor_text_entries.length > 0) {
+      const filteredTexts = pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === 'en')
+      if (filteredTexts.length > 0) {
+        return filteredTexts[0].flavor_text
+      } else {
+        return ''
+      }
+    } else {
+      return ''
+    }
+  }
+  return <Row className='justify-content-center'>
+    <Col md={6} sm={12} className='text-center'>
       <img src={IMAGE_URL + pokemonData.id + ".png"} />
     </Col>
-    <Col md={7} sm={12}>
-      <div className='m-3'>
-        <h1 className='text-capitalize'>{pokemonData.name}</h1>
+    <Col md={6} sm={12}>
+      <div className='mt-3'>
+        <p>
+          <span>{pokemonSpeciesData.flavor_text_entries ? getFlavorText() : null}</span>
+        </p>
       </div>
-      <div className="card-body">
+      <div className="mt-3">
         {
           pokemonData.types && pokemonData.types.length && <p>
             <b>Type: </b>

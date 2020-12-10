@@ -32,7 +32,7 @@ const PokemonList = (props) => {
     {
       pokemonsDataLoading ? <LoaderComponent /> : pokemonsData.length ? <div>
         <div className='text-center py-3'>
-          <h2 className='text-capitalize'>{pokemonsType} Pokemons</h2>
+          <h2 className='text-capitalize text-white'>{pokemonsType} Pokemons</h2>
         </div>
         <Row className='pl-3 ml-0 mr-0'>
           {

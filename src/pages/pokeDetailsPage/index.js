@@ -48,66 +48,58 @@ const Pokedetails = (props) => {
   const LoaderComponent = () => <div><Loader /></div>
 
   return (
-    <div className="p-3">
-      <Card className="shadow">
+    <div className='pokedetails-container'>
+      <div className="p-3 container-md">
         {
-          (pokemonDataLoading || pokemonSpeciesDataLoading) ? <LoaderComponent /> : pokemonData.name ? <PokeDetailsCard
-            pokemonData={pokemonData} pokemonSpeciesData={pokemonSpeciesData} /> : <SomethingWentWrongComponent />
+          pokemonData.name ? <div className='text-center'>
+            <h1 className='text-capitalize text-white'>{pokemonData.name}</h1>
+          </div> : null
         }
-      </Card>
-      <Row className='mt-3'>
-        <Col md="6" sm="12">
-          <Card className="shadow">
-            <CardHeader className="font-weight-bold">Moves</CardHeader>
-            <CardBody>
-              {/* {
-                pokemonData.moves && pokemonData.moves.slice(0,8).map((move, index) => <div key={index}>
-                  <h4 className="small font-weight-bold">
-                    {move.stat.name}<span className="float-right">{`${stats.base_stat}`}</span>
-                  </h4>
-                  <Progressbar stats={stats} />
-                </div>)
-              } */}
-            </CardBody>
-          </Card>
-        </Col>
-        <Col md="6" sm="12">
-          <Card className="shadow">
-            <CardHeader className="font-weight-bold">Stats</CardHeader>
-            <CardBody>
-              {
-                pokemonDataLoading ? <LoaderComponent /> : pokemonData.stats ? pokemonData.stats.sort((a, b) => a.base_stat > b.base_stat ? 1 : -1).map((stat, index) => <div key={index}>
-                  <h4 className="small font-weight-bold">
-                    {stat.stat.name}<span className="float-right">{`${stat.base_stat}`}</span>
-                  </h4>
-                  <Statsbar stat={stat} />
-                </div>) : <SomethingWentWrongComponent />
-              }
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-      <div className='mt-3'>
-        <Card className='shadow'>
-          <CardHeader className='font-weight-bold'>Evolutions</CardHeader>
+        <Card className="box p-0 shadow mt-3">
           {
-            pokemonSpeciesDataLoading ? <LoaderComponent /> : pokemonSpeciesData.evolution_chain ?
-              <Evolution url={pokemonSpeciesData.evolution_chain.url} /> : <SomethingWentWrongComponent />
+            (pokemonDataLoading) ? <LoaderComponent /> : pokemonData.name ? <PokeDetailsCard
+              pokemonData={pokemonData} pokemonSpeciesData={pokemonSpeciesData} /> : <SomethingWentWrongComponent />
           }
         </Card>
-      </div>
-      {
-        pokemonData.types ? <div className='mt-3'>
+        <Row className='mt-3'>
+          <Col md="12" sm="12">
+            <Card className="box p-0 shadow">
+              <CardHeader className="font-weight-bold">Stats</CardHeader>
+              <CardBody>
+                {
+                  pokemonDataLoading ? <LoaderComponent /> : pokemonData.stats ? pokemonData.stats.sort((a, b) => a.base_stat > b.base_stat ? 1 : -1).map((stat, index) => <div key={index}>
+                    <h4 className="small font-weight-bold">
+                      {stat.stat.name}<span className="float-right">{`${stat.base_stat}`}</span>
+                    </h4>
+                    <Statsbar stat={stat} />
+                  </div>) : <SomethingWentWrongComponent />
+                }
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+        <div className='mt-3'>
           <Card className='shadow'>
-            <CardHeader className='font-weight-bold'>Similar Pokemons</CardHeader>
+            <CardHeader className='font-weight-bold'>Evolutions</CardHeader>
             {
-              similarPokemonsDataLoading ? <LoaderComponent /> : similarPokemonsData.length ? <CardBody className='p-2'>
-                <HorizontalCards pokemons={similarPokemonsData.slice(0, 8)} />
-              </CardBody> : <SomethingWentWrongComponent />
+              pokemonSpeciesDataLoading ? <LoaderComponent /> : pokemonSpeciesData.evolution_chain ?
+                <Evolution url={pokemonSpeciesData.evolution_chain.url} /> : <SomethingWentWrongComponent />
             }
           </Card>
-        </div> : null
-      }
+        </div>
+        {
+          pokemonData.types ? <div className='mt-3'>
+            <Card className='shadow'>
+              <CardHeader className='font-weight-bold'>Similar Pokemons</CardHeader>
+              {
+                similarPokemonsDataLoading ? <LoaderComponent /> : similarPokemonsData.length ? <CardBody className='p-2'>
+                  <HorizontalCards pokemons={similarPokemonsData.slice(0, 8)} />
+                </CardBody> : <SomethingWentWrongComponent />
+              }
+            </Card>
+          </div> : null
+        }
+      </div>
     </div>
   );
 };
