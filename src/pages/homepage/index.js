@@ -59,6 +59,7 @@ function HomePage(props) {
   }
 
   useEffect(() => {
+    document.title = 'Pokewiki- Home'
     getWaterPokemonsData()
     getFirePokemonsData()
     getGrassPokemonsData()

@@ -15,6 +15,7 @@ const PokemonList = (props) => {
   const getPokemonsData = () => {
     setPokemonsDataLoading(true)
     const { match } = props
+    document.title = `Pokewiki- ${match.params.name} pokemons`
     apiInstance.get(`/type/${match.params.name}/`).then((data) => {
       setPokemonsType(data.data.name)
       setPokemonsData(data.data.pokemon)

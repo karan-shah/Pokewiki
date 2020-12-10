@@ -19,7 +19,7 @@ const PokeDetailsCard = (props) => {
       return ''
     }
   }
-  return <Row className='justify-content-center'>
+  return <Row className='justify-content-center ml-0 mr-0'>
     <Col md={6} sm={12} className='text-center'>
       <img src={IMAGE_URL + pokemonData.id + ".png"} />
     </Col>

@@ -24,6 +24,7 @@ const Pokedetails = (props) => {
     setPokemonDataLoading(true)
     const { match } = props
     const name = match.params.name
+    document.title = `Pokewiki- ${name}`
     apiInstance.get(`/pokemon/${name}/`).then((data) => {
       setPokemonData(data.data);
       getSimilarPokemonsData(data.data.types[0].type.name);
@@ -61,23 +62,19 @@ const Pokedetails = (props) => {
               pokemonData={pokemonData} pokemonSpeciesData={pokemonSpeciesData} /> : <SomethingWentWrongComponent />
           }
         </Card>
-        <Row className='mt-3'>
-          <Col md="12" sm="12">
-            <Card className="box p-0 shadow">
-              <CardHeader className="font-weight-bold">Stats</CardHeader>
-              <CardBody>
-                {
-                  pokemonDataLoading ? <LoaderComponent /> : pokemonData.stats ? pokemonData.stats.sort((a, b) => a.base_stat > b.base_stat ? 1 : -1).map((stat, index) => <div key={index}>
-                    <h4 className="small font-weight-bold">
-                      {stat.stat.name}<span className="float-right">{`${stat.base_stat}`}</span>
-                    </h4>
-                    <Statsbar stat={stat} />
-                  </div>) : <SomethingWentWrongComponent />
-                }
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <Card className="box p-0 shadow mt-3">
+          <CardHeader className="font-weight-bold">Stats</CardHeader>
+          <CardBody>
+            {
+              pokemonDataLoading ? <LoaderComponent /> : pokemonData.stats ? pokemonData.stats.sort((a, b) => a.base_stat > b.base_stat ? 1 : -1).map((stat, index) => <div key={index}>
+                <h4 className="small font-weight-bold">
+                  {stat.stat.name}<span className="float-right">{`${stat.base_stat}`}</span>
+                </h4>
+                <Statsbar stat={stat} />
+              </div>) : <SomethingWentWrongComponent />
+            }
+          </CardBody>
+        </Card>
         <div className='mt-3'>
           <Card className='shadow'>
             <CardHeader className='font-weight-bold'>Evolutions</CardHeader>

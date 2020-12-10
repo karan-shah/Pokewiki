@@ -9,7 +9,7 @@ import './banner.css'
 
 const Banner = () => {
   const generateRandomPokeId = () => {
-    const number = Math.floor(Math.random() * 800);
+    const number = Math.floor(Math.random() * (799 - 0) + 1);
     return number;
   }
 
