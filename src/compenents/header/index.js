@@ -6,21 +6,19 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  NavLink
 } from "reactstrap";
 import { Link } from 'react-router-dom';
+import Select from "react-select";
 
 import apiInstance from '../../api'
 import SearchBarComponent from '../Searchbar';
+import './Header.css'
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pokemons, setPokemonsData] = useState([])
-  const [pokemontype, settype] = useState("");
+  const [pokemonType, setPokemonType] = useState([]);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -29,22 +27,55 @@ const Header = (props) => {
       .then((res) => setPokemonsData(res.data.results))
   }
 
+  const handlePokemonTypeClick = (pokeType) => {
+    props.history.push(`/pokewiki/type/${pokeType.value}`)
+  }
+
   useEffect(() => {
+    const currentPath = props.history.location.pathname
+    if (currentPath.split('/').length > 2) {
+      if (currentPath.split('/')[2] === 'type') {
+        console.log('set pokemon type value- ', currentPath.split('/')[3])
+        const selectedType = currentPath.split('/')[3]
+        const selectedPokemonType = [{ label: selectedType, value: selectedType }]
+        setPokemonType(selectedPokemonType)
+      }
+    } else {
+      setPokemonType([])
+    }
     getPokemonsData()
-  }, [])
+  }, [props.history.location.pathname])
+
+  const pokemonTypes = [{ label: 'normal', value: 'normal' },
+  { label: 'fighting', value: 'fighting' },
+  { label: 'flying', value: 'flying' },
+  { label: 'poison', value: 'poison' },
+  { label: 'ground', value: 'ground' },
+  { label: 'rock', value: 'rock' },
+  { label: 'bug', value: 'bug' },
+  { label: 'ghost', value: 'ghost' },
+  { label: 'steel', value: 'steel' },
+  { label: 'fire', value: 'fire' },
+  { label: 'water', value: 'water' },
+  { label: 'grass', value: 'grass' },
+  { label: 'electric', value: 'electric' },
+  { label: 'psychic', value: 'psychic' },
+  { label: 'ice', value: 'ice' },
+  { label: 'dragon', value: 'dragon' },
+  { label: 'dark', value: 'dark' },
+  { label: 'fairy', value: 'fairy' },
+  ]
 
   return (
     <Navbar color="light" light expand="md">
-      <NavbarBrand>
-        <Link to='/'>
-          <div>
-            <img
-              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/underground/iron-ball.png"
-              alt="..."
-              className="rounded-circle"
-            />
-          </div>
-        </Link>
+      <NavbarBrand tag={Link} to='/'>
+        <div>
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/underground/iron-ball.png"
+            alt="..."
+            className="rounded-circle"
+          />
+        </div>
       </NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
@@ -54,20 +85,13 @@ const Header = (props) => {
               <NavItem>
                 <NavLink tag={Link} to="/">PokeWiki</NavLink>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Pokemon Type
-                </DropdownToggle>
-                <DropdownMenu right>
-
-                  <Link to={'/pokewiki/type/water'} className='custom-link'><DropdownItem>Water</DropdownItem></Link>
-                  <Link to={'/pokewiki/type/fire'} className='custom-link'><DropdownItem>Fire</DropdownItem></Link>
-                  <Link to={'/pokewiki/type/grass'} className='custom-link' ><DropdownItem>Grass</DropdownItem></Link>
-                  <Link to={'/pokewiki/type/electric'} className='custom-link'><DropdownItem>Electric</DropdownItem></Link>
-                  <Link to={'/pokewiki/type/dragon'} className='custom-link'><DropdownItem>Dragon</DropdownItem></Link>
-
-                </DropdownMenu>
-              </UncontrolledDropdown>
+              <div className='ml-3 poketype-select-container'>
+                <Select isSearchable={true} placeholder='Select Pokemon Type'
+                  options={pokemonTypes}
+                  onChange={handlePokemonTypeClick}
+                  value={pokemonType}
+                />
+              </div>
             </Nav>
           </div>
           <div>
