@@ -52,7 +52,7 @@ const Pokedetails = (props) => {
       <div className="p-3 container-md">
         {
           pokemonData.name ? <div className='text-center'>
-            <h1 className='text-capitalize text-white'>{pokemonData.name}</h1>
+            <h1 className='text-capitalize'>{pokemonData.name}</h1>
           </div> : null
         }
         <Card className="box p-0 shadow mt-3">

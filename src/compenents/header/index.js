@@ -35,7 +35,6 @@ const Header = (props) => {
     const currentPath = props.history.location.pathname
     if (currentPath.split('/').length > 2) {
       if (currentPath.split('/')[2] === 'type') {
-        console.log('set pokemon type value- ', currentPath.split('/')[3])
         const selectedType = currentPath.split('/')[3]
         const selectedPokemonType = [{ label: selectedType, value: selectedType }]
         setPokemonType(selectedPokemonType)
