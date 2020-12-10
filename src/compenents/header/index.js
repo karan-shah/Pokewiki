@@ -39,6 +39,8 @@ const Header = (props) => {
         const selectedType = currentPath.split('/')[3]
         const selectedPokemonType = [{ label: selectedType, value: selectedType }]
         setPokemonType(selectedPokemonType)
+      } else {
+        setPokemonType([])
       }
     } else {
       setPokemonType([])
