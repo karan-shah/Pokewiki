@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 
 import Loader from '../../compenents/loader'
 import SomethingWentWrongComponent from '../../compenents/somethingWentWrong'
+import { colorByPokeType, textColorByPokeType } from '../../utility/constants'
 
 import apiInstance from '../../api'
 
@@ -29,6 +30,8 @@ const PokemonList = (props) => {
   const LoaderComponent = () => <div><Loader /></div>
 
   const IMAGE_URL = process.env.REACT_APP_IMAGE_URL
+  const { match } = props
+  const pokeType = match.params.name
   return <div className='container-md'>
     {
       pokemonsDataLoading ? <LoaderComponent /> : pokemonsData.length ? <div>
@@ -42,7 +45,8 @@ const PokemonList = (props) => {
               const id = url.split("/")[url.split("/").length - 2]
               const name = pokemon.pokemon.name
               return <Col md={3} sm={12} key={index} className='mb-3 pl-0 pr-3'>
-                <Card className="box shadow text-center">
+                <Card className={`box shadow ${colorByPokeType[pokeType]}
+                 ${textColorByPokeType[pokeType] ? `text-${textColorByPokeType[pokeType]}` : null} text-center`}>
                   <Link to={`/pokewiki/${name}`} className='custom-link'>
                     <div>
                       <img src={IMAGE_URL + id + ".png"} className="w-100" />

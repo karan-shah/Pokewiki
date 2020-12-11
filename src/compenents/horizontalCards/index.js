@@ -5,7 +5,7 @@ import { Card } from "reactstrap";
 import "./style.css";
 
 const HorizontalCards = (props) => {
-  const { pokemons } = props;
+  const { pokemons, bgColor } = props;
   const IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
   return <div className="cardsContainer py-2">
     {
@@ -15,7 +15,7 @@ const HorizontalCards = (props) => {
         const name = pokemonData.pokemon.name
         return (
           <div key={index} className="pokemonCard">
-            <Card className="box">
+            <Card className={`box text-white ${bgColor ? bgColor : null}`}>
               <Link to={`/pokewiki/${name}`} className='custom-link'>
                 <div>
                   <img src={IMAGE_URL + id + ".png"} className="w-100" />

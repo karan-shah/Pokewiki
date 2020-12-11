@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Card, CardHeader, CardBody } from "reactstrap";
+import { Card, CardHeader, CardBody } from "reactstrap";
 
 import apiInstance from '../../api';
 import PokeDetailsCard from '../../compenents/pokeDetailsCard';

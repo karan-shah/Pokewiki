@@ -76,7 +76,7 @@ function HomePage(props) {
     </CardHeader>
     {
       loading ? <LoaderComponent /> : pokemons.length ? <CardBody className='p-2'>
-        <HorizontalCards pokemons={pokemons.slice(0, 10)} />
+        <HorizontalCards pokemons={pokemons.slice(0, 10)} bgColor={color} />
       </CardBody> : <SomethingWentWrongComponent />
     }
   </Card>
