@@ -29,7 +29,7 @@ const Pokedetails = (props) => {
     apiInstance.get(`/pokemon/${name}/`).then((data) => {
       setPokemonData(data.data);
       getPokemonSpeciesData(data.data.species.name);
-      getSimilarPokemonsData(data.data.types[0].type.name, data.data.id);
+      getSimilarPokemonsData(data.data.types[0].type.name);
     }).finally(() => setPokemonDataLoading(false));
   }
 
@@ -38,14 +38,15 @@ const Pokedetails = (props) => {
     apiInstance.get(`/pokemon-species/${name}/`).then((data) => setpokemonSpeciesData(data.data)).finally(() => setPokemonSpeciesDataLoading(false));
   }
 
-  const getSimilarPokemonsData = (type, pokeId) => {
+  const getSimilarPokemonsData = (type) => {
     setSimilarPokemonsDataLoading(true)
     apiInstance.get(`/type/${type}`).then((data) => {
       setSimilarPokemonsData(data.data.pokemon)
-      if ((pokeId + 10) <= data.data.pokemon.length) {
+      const pokeId = data.data.pokemon.findIndex((pokemon, index) => pokemon.pokemon.name === props.match.params.name)
+      if (pokeId + 50 < data.data.pokemon.length) {
         setSimilarPokemonStartId(pokeId + 1)
       } else {
-        setSimilarPokemonStartId(5)
+        setSimilarPokemonStartId(Math.floor(Math.random() * (data.data.pokemon.length - 40)))
       }
     }).finally(() => setSimilarPokemonsDataLoading(false));
   }
