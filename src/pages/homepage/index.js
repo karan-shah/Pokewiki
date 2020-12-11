@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Card, CardBody, CardHeader } from 'reactstrap'
 
-import { colorByPokeType, textColorByPokeType } from '../../utility/constants'
+import { colorByPokeType, textColorByPokeType } from '../../utils/constants'
 import Banner from '../../compenents/banner'
 import HorizontalCards from '../../compenents/horizontalCards'
 import Loader from '../../compenents/loader'

@@ -67,7 +67,7 @@ const Evolve = (props) => {
                   <FontAwesomeIcon icon={faArrowRight} size="3x" style={evolutionChainData.chain.evolves_to[0].evolves_to.length ? {} : { visibility: 'hidden' }} />
                 </div>
               </div>
-            </Col> : <Col>
+            </Col> : <Col className='my-auto'>
                 <p>This pokemon does not evolve.</p>
               </Col>
           }

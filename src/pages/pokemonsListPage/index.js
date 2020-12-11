@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 import Loader from '../../compenents/loader'
 import SomethingWentWrongComponent from '../../compenents/somethingWentWrong'
-import { colorByPokeType, textColorByPokeType } from '../../utility/constants'
+import { colorByPokeType, textColorByPokeType } from '../../utils/constants'
 
 import apiInstance from '../../api'
 

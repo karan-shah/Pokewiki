@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card } from "reactstrap";
 
-import { colorByPokeType, textColorByPokeType } from '../../utility/constants'
+import { colorByPokeType, textColorByPokeType } from '../../utils/constants'
 import "./style.css";
 
 const HorizontalCards = (props) => {

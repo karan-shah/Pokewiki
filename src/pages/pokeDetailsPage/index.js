@@ -19,6 +19,7 @@ const Pokedetails = (props) => {
   const [pokemonDataLoading, setPokemonDataLoading] = useState(true)
   const [pokemonSpeciesDataLoading, setPokemonSpeciesDataLoading] = useState(true)
   const [similarPokemonsDataLoading, setSimilarPokemonsDataLoading] = useState(true)
+  const [similarPokemonStartId, setSimilarPokemonStartId] = useState(0)
 
   const getPokemonData = () => {
     setPokemonDataLoading(true)
@@ -27,19 +28,26 @@ const Pokedetails = (props) => {
     document.title = `Pokewiki- ${name}`
     apiInstance.get(`/pokemon/${name}/`).then((data) => {
       setPokemonData(data.data);
-      getSimilarPokemonsData(data.data.types[0].type.name);
-      getpokemonSpeciesData(data.data.species.name);
+      getPokemonSpeciesData(data.data.species.name);
+      getSimilarPokemonsData(data.data.types[0].type.name, data.data.id);
     }).finally(() => setPokemonDataLoading(false));
   }
 
-  const getpokemonSpeciesData = (name) => {
+  const getPokemonSpeciesData = (name) => {
     setPokemonSpeciesDataLoading(true);
     apiInstance.get(`/pokemon-species/${name}/`).then((data) => setpokemonSpeciesData(data.data)).finally(() => setPokemonSpeciesDataLoading(false));
   }
 
-  const getSimilarPokemonsData = (type) => {
+  const getSimilarPokemonsData = (type, pokeId) => {
     setSimilarPokemonsDataLoading(true)
-    apiInstance.get(`/type/${type}`).then((data) => setSimilarPokemonsData(data.data.pokemon)).finally(() => setSimilarPokemonsDataLoading(false));
+    apiInstance.get(`/type/${type}`).then((data) => {
+      setSimilarPokemonsData(data.data.pokemon)
+      if ((pokeId + 10) <= data.data.pokemon.length) {
+        setSimilarPokemonStartId(pokeId + 1)
+      } else {
+        setSimilarPokemonStartId(5)
+      }
+    }).finally(() => setSimilarPokemonsDataLoading(false));
   }
 
   useEffect(() => {
@@ -47,7 +55,6 @@ const Pokedetails = (props) => {
   }, [props.match.params.name])
 
   const LoaderComponent = () => <div><Loader /></div>
-
   return (
     <div className='pokedetails-container'>
       <div className="p-3 container-md">
@@ -90,7 +97,7 @@ const Pokedetails = (props) => {
               <CardHeader className='font-weight-bold'>Similar Pokemons</CardHeader>
               {
                 similarPokemonsDataLoading ? <LoaderComponent /> : similarPokemonsData.length ? <CardBody className='px-3 pt-0 pb-2'>
-                  <HorizontalCards pokemons={similarPokemonsData.slice(0, 10)} pokeType={pokemonData.types[0].type.name} />
+                  <HorizontalCards pokemons={similarPokemonsData.slice(similarPokemonStartId, similarPokemonStartId + 10)} pokeType={pokemonData.types[0].type.name} />
                 </CardBody> : <SomethingWentWrongComponent />
               }
             </Card>

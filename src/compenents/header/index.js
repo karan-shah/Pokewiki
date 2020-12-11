@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import Select from "react-select";
 
 import SearchBarComponent from '../Searchbar';
-import { pokemonTypes } from '../../utility/constants'
+import { pokemonTypes } from '../../utils/constants'
 import apiInstance from '../../api'
 import './Header.css'
 

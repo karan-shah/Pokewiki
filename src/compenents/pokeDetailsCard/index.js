@@ -2,7 +2,7 @@ import React from 'react'
 import { Row, Col, Badge } from "reactstrap"
 import { Link } from "react-router-dom"
 
-import { colorByPokeType, textColorByPokeType } from '../../utility/constants'
+import { colorByPokeType, textColorByPokeType } from '../../utils/constants'
 
 const PokeDetailsCard = (props) => {
   const { pokemonData, pokemonSpeciesData } = props
