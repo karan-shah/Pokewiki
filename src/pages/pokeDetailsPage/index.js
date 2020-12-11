@@ -90,7 +90,7 @@ const Pokedetails = (props) => {
               <CardHeader className='font-weight-bold'>Similar Pokemons</CardHeader>
               {
                 similarPokemonsDataLoading ? <LoaderComponent /> : similarPokemonsData.length ? <CardBody className='p-2'>
-                  <HorizontalCards pokemons={similarPokemonsData.slice(0, 8)} />
+                  <HorizontalCards pokemons={similarPokemonsData.slice(0, 8)} pokeType={pokemonData.types[0].type.name} />
                 </CardBody> : <SomethingWentWrongComponent />
               }
             </Card>

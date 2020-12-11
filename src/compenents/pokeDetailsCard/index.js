@@ -2,11 +2,12 @@ import React from 'react'
 import { Row, Col, Badge } from "reactstrap"
 import { Link } from "react-router-dom"
 
+import { colorByPokeType, textColorByPokeType } from '../../utility/constants'
+
 const PokeDetailsCard = (props) => {
   const { pokemonData, pokemonSpeciesData } = props
 
   const IMAGE_URL = process.env.REACT_APP_IMAGE_URL
-  const colorBasedOnType = { water: 'info', fire: 'warning', bug: 'success', flying: 'dark', poison: 'primary', normal: 'secondary' }
   const getFlavorText = () => {
     if (pokemonSpeciesData.flavor_text_entries.length > 0) {
       const filteredTexts = pokemonSpeciesData.flavor_text_entries.filter((entry) => entry.language.name === 'en')
@@ -36,7 +37,7 @@ const PokeDetailsCard = (props) => {
             {
               pokemonData.types && pokemonData.types.map((type, index) => <Link key={index} to={`/pokewiki/type/${type.type.name}`} className='custom-link'>
                 <Badge
-                  color='info' className={`px-2 py-1 text-uppercase text-white ${colorBasedOnType[type.type.name] ? `bg-${colorBasedOnType[type.type.name]}` : 'bg-info'} ${(index + 1) !== pokemonData.types.length && 'mr-2'}`}>{type.type.name}
+                  color={colorByPokeType[type.type.name]} className={`px-2 py-1 text-uppercase ${textColorByPokeType[type.type.name] ? `text-${textColorByPokeType[type.type.name]}` : null} ${(index + 1) !== pokemonData.types.length && 'mr-2'}`}>{type.type.name}
                 </Badge>
               </Link>)
             }
