@@ -20,7 +20,7 @@
 
 .pokemonCard {
   min-width: 250px;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
   transition: transform 0.5s ease;
 }
 .pokemonCard:hover {

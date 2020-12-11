@@ -8,7 +8,7 @@ import "./style.css";
 const HorizontalCards = (props) => {
   const { pokemons, pokeType } = props;
   const IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
-  return <div className="cardsContainer py-2">
+  return <div className="cardsContainer py-3">
     {
       pokemons.map((pokemonData, index) => {
         const { url } = pokemonData.pokemon;

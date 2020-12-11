@@ -2,25 +2,28 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Card, CardBody, CardHeader } from 'reactstrap'
 
-import apiInstance from '../../api'
-
+import { colorByPokeType, textColorByPokeType } from '../../utility/constants'
 import Banner from '../../compenents/banner'
 import HorizontalCards from '../../compenents/horizontalCards'
 import Loader from '../../compenents/loader'
 import SomethingWentWrongComponent from '../../compenents/somethingWentWrong'
 
+import apiInstance from '../../api'
+
 function HomePage(props) {
 
   const [waterPokemons, setWaterPokemonsData] = useState([])
   const [firePokemons, setFirePokemonsData] = useState([])
+  const [flyingPokemons, setFlyingPokemonsData] = useState([])
   const [grassPokemons, setGrassPokemonsData] = useState([])
   const [electricPokemons, setElectricPokemonsData] = useState([])
   const [dragonPokemons, setDragonPokemonsData] = useState([])
   const [waterPokemonLoading, setWaterPokemonLoading] = useState(true)
   const [firePokemonLoading, setFirePokemonLoading] = useState(true)
-  const [grassPokemonsLoading, setGrassPokemonsDataLoading] = useState([])
-  const [electricPokemonsLoading, setElectricPokemonsDataLoading] = useState([])
-  const [dragonPokemonsLoading, setDragonPokemonsDataLoading] = useState([])
+  const [flyingPokemonLoading, setFlyingPokemonLoading] = useState(true)
+  const [grassPokemonsLoading, setGrassPokemonsDataLoading] = useState(true)
+  const [electricPokemonsLoading, setElectricPokemonsDataLoading] = useState(true)
+  const [dragonPokemonsLoading, setDragonPokemonsDataLoading] = useState(true)
 
   const getWaterPokemonsData = () => {
     setWaterPokemonLoading(true)
@@ -28,6 +31,13 @@ function HomePage(props) {
       .then((res) => {
         setWaterPokemonsData(res.data.pokemon)
       }).finally(() => setWaterPokemonLoading(false))
+  }
+  const getFlyingPokemonsData = () => {
+    setFlyingPokemonLoading(true)
+    apiInstance.get('/type/flying')
+      .then((res) => {
+        setFlyingPokemonsData(res.data.pokemon)
+      }).finally(() => setFlyingPokemonLoading(false))
   }
   const getFirePokemonsData = () => {
     setFirePokemonLoading(true)
@@ -62,6 +72,7 @@ function HomePage(props) {
     document.title = 'Pokewiki- Home'
     getWaterPokemonsData()
     getFirePokemonsData()
+    getFlyingPokemonsData()
     getGrassPokemonsData()
     getElectricPokemonsData()
     getDragonPokemonsData()
@@ -69,13 +80,13 @@ function HomePage(props) {
 
   const LoaderComponent = () => <div><Loader /></div>
 
-  const RenderPokemonsByType = ({ type, color, pokemons, loading, index }) => <Card className={`${index > 0 ? 'mt-3' : ''}`}>
+  const RenderPokemonsByType = ({ type, pokemons, loading, index }) => <Card className={`shadow ${index > 0 ? 'mt-3' : ''}`}>
     <CardHeader className='d-flex flex-row justify-content-between'>
       <h4 className='text-capitalize mb-0'>{type} Pokemons</h4>
-      <Button color={color} tag={Link} to={`/pokewiki/type/${type}`} className='text-white'>View More</Button>
+      <Button color={colorByPokeType[type]} tag={Link} to={`/pokewiki/type/${type}`} className={`${textColorByPokeType[type] ? `text-${textColorByPokeType[type]}` : null}`}>View More</Button>
     </CardHeader>
     {
-      loading ? <LoaderComponent /> : pokemons.length ? <CardBody className='p-2'>
+      loading ? <LoaderComponent /> : pokemons.length ? <CardBody className='px-3 pt-0 pb-2'>
         <HorizontalCards pokemons={pokemons.slice(0, 10)} pokeType={type} />
       </CardBody> : <SomethingWentWrongComponent />
     }
@@ -84,11 +95,12 @@ function HomePage(props) {
   return <div>
     <Banner />
     <div className='p-3'>
-      <RenderPokemonsByType type='water' color='info' pokemons={waterPokemons} loading={waterPokemonLoading} index={0} />
-      <RenderPokemonsByType type='fire' color='warning' pokemons={firePokemons} loading={firePokemonLoading} index={1} />
-      <RenderPokemonsByType type='grass' color='success' pokemons={grassPokemons} loading={grassPokemonsLoading} index={2} />
-      <RenderPokemonsByType type='electric' color='dark' pokemons={electricPokemons} loading={electricPokemonsLoading} index={3} />
-      <RenderPokemonsByType type='dragon' color='danger' pokemons={dragonPokemons} loading={dragonPokemonsLoading} index={4} />
+      <RenderPokemonsByType type='flying' pokemons={flyingPokemons} loading={flyingPokemonLoading} index={0} />
+      <RenderPokemonsByType type='water' pokemons={waterPokemons} loading={waterPokemonLoading} index={1} />
+      <RenderPokemonsByType type='fire' pokemons={firePokemons} loading={firePokemonLoading} index={2} />
+      <RenderPokemonsByType type='grass' pokemons={grassPokemons} loading={grassPokemonsLoading} index={3} />
+      <RenderPokemonsByType type='electric' pokemons={electricPokemons} loading={electricPokemonsLoading} index={4} />
+      <RenderPokemonsByType type='dragon' pokemons={dragonPokemons} loading={dragonPokemonsLoading} index={5} />
     </div>
   </div>
 }
