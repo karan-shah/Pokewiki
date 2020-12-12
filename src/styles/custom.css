@@ -1,0 +1,46 @@
+html, body, #root, #root>div {
+  height: 100%;
+  /* background-color: #181924; */
+}
+
+.box {
+  background-color: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1) !important;
+  color: #4a4a4a;
+  display: block;
+  padding: 1.25rem;
+}
+.box.danger {
+  background-color: rgba(220, 53, 69, 0.7) !important;
+}
+.box.success {
+  background-color: rgba(40, 167, 69, 0.7) !important;
+}
+.box.primary {
+  background-color: rgba(0, 123, 255, 0.5) !important;
+}
+.box.info {
+  background-color: rgba(23, 162, 184, 0.7) !important;
+}
+.box.dark {
+  background-color: rgba(52, 58, 64, 0.7) !important;
+}
+.box.light {
+  background-color: rgba(248, 249, 250, 1) !important;
+}
+.box.secondary {
+  background-color: rgba(108, 117, 125, 0.7) !important;
+}
+.box.warning {
+  background-color: rgba(255, 193, 7, 0.6) !important;
+}
+
+a.custom-link {
+  color: inherit !important;
+}
+
+a.custom-link:hover {
+  text-decoration: none !important;
+  color: inherit !important;
+}
